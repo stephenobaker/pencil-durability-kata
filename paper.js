@@ -3,7 +3,7 @@ class Paper {
 		this.contentString = '';
 	}
 	set content(string) {
-		this.contentString = this.contentString + string;
+		this.contentString = string;
 	}
 	get content() {
 		return this.contentString;

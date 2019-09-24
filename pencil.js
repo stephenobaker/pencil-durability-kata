@@ -1,6 +1,6 @@
 class Pencil {
 	write(string, paper) {
-		paper.content = string;
+		paper.content = paper.content + string;
 	}
 }
 
