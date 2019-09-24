@@ -1,0 +1,20 @@
+{
+  "name": "pencil-kata",
+  "version": "1.0.0",
+  "description": "kata exercise for Pillar interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require @babel/register"
+  },
+  "author": "Stephen Baker",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.6.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.6.0",
+    "@babel/register": "^7.6.0"
+  }
+}
