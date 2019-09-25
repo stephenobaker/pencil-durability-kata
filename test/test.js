@@ -25,12 +25,18 @@ describe('a pencil', () => {
 			expect(pencil5.durability).to.equal(5);
 			expect(pencil4000.durability).to.equal(4000);
 		});
-		xit('writes blank spaces if it has degraded', () => {
-			let pencil = new Pencil(5);
+		it('writes blank spaces if it has degraded', () => {
+			let pencil4 = new Pencil(4);
 			let paper = new Paper();
+			pencil4.write('hello', paper);
+			expect(paper.content).to.equal('hell ');
+		});
+		it('degrades over multiple write functions', () => {
+			let pencil = new Pencil(10);
+			let paper = new Paper();
+			pencil.write('hello', paper);
 			pencil.write('helloworld', paper);
-			expect(paper.content).to.equal('hello     ');
-
+			expect(paper.content).to.equal('hellohello     ');
 		});
 		xit('degrades by 0 for each space or newline written', () => {
 
