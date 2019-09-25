@@ -25,7 +25,7 @@ describe('a pencil', () => {
 			expect(pencil5.durability).to.equal(5);
 			expect(pencil4000.durability).to.equal(4000);
 		});
-		it('writes blank spaces if it has degraded', () => {
+		it('degrades lowercase letters by 1, then writes blank spaces', () => {
 			let pencil4 = new Pencil(4);
 			let paper = new Paper();
 			pencil4.write('hello', paper);
@@ -38,14 +38,17 @@ describe('a pencil', () => {
 			pencil.write('helloworld', paper);
 			expect(paper.content).to.equal('hellohello     ');
 		});
-		xit('degrades by 0 for each space or newline written', () => {
-
+		it('degrades by 0 for each space or newline written', () => {
+			let pencil = new Pencil(5);
+			let paper = new Paper();
+			pencil.write('a b c', paper);
+			expect(pencil.durability).to.equal(2);
 		});
-		xit('degrades by 1 for each lowercase letter written', () => {
-
-		});
-		xit('degrades by 2 for each uppercase letter written', () => {
-
+		it('degrades by 2 for each uppercase letter written', () => {
+			let pencil = new Pencil(5);
+			let paper = new Paper();
+			pencil.write('HI', paper);
+			expect(pencil.durability).to.equal(1);
 		});
 		xit('degrades by an unkown amount for each non-letter character written', () => {
 

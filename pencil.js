@@ -11,7 +11,7 @@ class Pencil {
 	write(string, paper) {
 		for (var i = 0; i < string.length; i++) {
 			paper.content += (this.durability > 0 ? string[i] : ' ');
-			this.durability = this.durability - 1;
+			this.durability = this.durability - (/\s/.test(string[i]) ? 0 : (string[i] === string[i].toUpperCase() ? 2 : 1));
 		}
 	}
 }
