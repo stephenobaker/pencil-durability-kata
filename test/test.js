@@ -81,4 +81,45 @@ describe('a pencil', () => {
 			expect(pencil.durability).to.equal(0);
 		});
 	});
+	describe('has an eraser that can erase', () => {
+		it('replaces the last occurance of a string with empty spaces', () => {
+			let pencil = new Pencil();
+			let paper = new Paper();
+			pencil.write('How much wood would a woodchuck chuck if a woodchuck could chuck wood', paper);
+			pencil.erase('chuck', paper);
+			expect(paper.content).to.equal('How much wood would a woodchuck chuck if a woodchuck could       wood')
+			pencil.erase('chuck', paper);
+			expect(paper.content).to.equal('How much wood would a woodchuck chuck if a wood      could       wood')
+		});
+	});
+	describe('has an eraser that degrades with use', () => {
+		let pencil = new Pencil(100,1,25);
+		it('can be provided a value for eraser durability', () => {
+			expect(pencil.eraserDurability).to.equal(25);
+		});
+		it('characters degrade the eraser by a value of one', () => {
+			let paper = new Paper();
+			pencil.write('hello world', paper);
+			pencil.erase('hello', paper);
+			expect(pencil.eraserDurability).to.equal(20);
+		});
+		it('white space does not degrade the eraser', () => {
+			let paper = new Paper();
+			pencil.write('hello w o r l d', paper);
+			pencil.erase('w o r l d', paper);
+			expect(pencil.eraserDurability).to.equal(15);
+		});
+		it('erases from right to left, and doesn\'t erase once it\'s degraded', () => {
+			let paper = new Paper();
+			pencil.write('this is a testtesttesttest', paper);
+			pencil.erase('test');
+			pencil.erase('test');
+			pencil.erase('test');
+			pencil.erase('test');
+			expect(paper.content).to.equal('this is a t               ');
+		});
+	});
+	describe('can edit previously written text', () => {
+
+	});
 });
