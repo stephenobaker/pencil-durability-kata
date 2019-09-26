@@ -66,7 +66,7 @@ describe('a pencil', () => {
 			let pencil = new Pencil(4,7);
 			expect(pencil.length).to.equal(7);
 		});
-		xit('length is decreased by one each time it\'s sharpened', () => {
+		it('length is decreased by one each time it\'s sharpened', () => {
 			let pencil = new Pencil(4,7);
 			pencil.sharpen();
 			expect(pencil.length).to.equal(6);

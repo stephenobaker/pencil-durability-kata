@@ -12,6 +12,7 @@ class Pencil {
 	}
 	sharpen() {
 		this.durability = this.initialDurability;
+		this.length -= 1;
 	}
 }
 
