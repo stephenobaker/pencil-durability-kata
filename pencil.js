@@ -1,6 +1,7 @@
 class Pencil {
 	constructor(durability) {
-		this.durabilityLeft = (durability ? durability : Infinity);
+		this.initialDurability = (durability ? durability : Infinity);
+		this.durabilityLeft = this.initialDurability;
 	}
 	get durability() {
 		return this.durabilityLeft;
@@ -13,6 +14,9 @@ class Pencil {
 			paper.content += (this.durability > 0 ? string[i] : ' ');
 			this.durability = this.durability - (/\s/.test(string[i]) ? 0 : (string[i] === string[i].toUpperCase() ? 2 : 1));
 		}
+	}
+	sharpen() {
+		this.durability = this.initialDurability;
 	}
 }
 
