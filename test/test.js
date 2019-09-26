@@ -71,8 +71,14 @@ describe('a pencil', () => {
 			pencil.sharpen();
 			expect(pencil.length).to.equal(6);
 		});
-		xit('can no longer be sharpened once length reaches zero', () => {
-
+		it('sharpening no longer restores sharpness once length reaches zero', () => {
+			let pencil = new Pencil(4,2);
+			let paper = new Paper();
+			pencil.sharpen();
+			pencil.sharpen();
+			pencil.write('test', paper);
+			pencil.sharpen();
+			expect(pencil.durability).to.equal(0);
 		});
 	});
 });
