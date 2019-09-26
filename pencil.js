@@ -1,14 +1,8 @@
 class Pencil {
 	constructor(durability, length) {
 		this.initialDurability = (durability ? durability : Infinity);
-		this.durabilityLeft = this.initialDurability;
+		this.durability = this.initialDurability;
 		this.length = (length ? length : Infinity);
-	}
-	get durability() {
-		return this.durabilityLeft;
-	}
-	set durability(newValue) {
-		this.durabilityLeft = newValue;
 	}
 	write(string, paper) {
 		for (var i = 0; i < string.length; i++) {
