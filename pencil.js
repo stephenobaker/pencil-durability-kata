@@ -5,10 +5,10 @@ class Pencil {
 		this.length = (length ? length : Infinity);
 	}
 	write(string, paper) {
-		for (var i = 0; i < string.length; i++) {
-			paper.content += (this.durability > 0 ? string[i] : ' ');
-			this.durability = this.durability - (/\s/.test(string[i]) ? 0 : (string[i] === string[i].toUpperCase() ? 2 : 1));
-		}
+		string.split('').map((character) => {
+			paper.content += (this.durability > 0 ? character : ' ');
+			this.durability = this.durability - (/\s/.test(character) ? 0 : (character === character.toUpperCase() ? 2 : 1));
+		});
 	}
 	sharpen() {
 		if (this.length > 0) {
