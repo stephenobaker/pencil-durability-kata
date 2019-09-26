@@ -1,7 +1,8 @@
 class Pencil {
-	constructor(durability) {
+	constructor(durability, length) {
 		this.initialDurability = (durability ? durability : Infinity);
 		this.durabilityLeft = this.initialDurability;
+		this.length = (length ? length : Infinity);
 	}
 	get durability() {
 		return this.durabilityLeft;

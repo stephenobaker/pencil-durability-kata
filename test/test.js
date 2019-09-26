@@ -59,14 +59,17 @@ describe('a pencil', () => {
 			let pencil = new Pencil(10);
 			let paper = new Paper();
 			pencil.write('test', paper);
-			pencil.sharpen()
+			pencil.sharpen();
 			expect(pencil.durability).to.equal(10);
 		});
-		xit('can be provided with an initial length value', () => {
-
+		it('can be provided with an initial length value', () => {
+			let pencil = new Pencil(4,7);
+			expect(pencil.length).to.equal(7);
 		});
 		xit('length is decreased by one each time it\'s sharpened', () => {
-
+			let pencil = new Pencil(4,7);
+			pencil.sharpen();
+			expect(pencil.length).to.equal(6);
 		});
 		xit('can no longer be sharpened once length reaches zero', () => {
 
