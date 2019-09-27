@@ -52,8 +52,12 @@ describe('a pencil', () => {
 			pencil.write('HI', paper);
 			expect(pencil.durability).to.equal(1);
 		});
-		xit('degrades by an unkown amount for each non-letter character written', () => {
-
+		it('degrades by one for each non-letter character written', () => {
+			//this isn't specified either way in requirements
+			let pencil = new Pencil(5);
+			let paper = new Paper();
+			pencil.write('$3', paper);
+			expect(pencil.durability).to.equal(3);
 		});
 	});
 	describe('can be sharpened', () => {
@@ -122,7 +126,28 @@ describe('a pencil', () => {
 		});
 	});
 	describe('can edit previously written text', () => {
-
+		it('can pass an optional edit argument when erasing', () => {
+			let pencil = new Pencil();
+			let paper = new Paper();
+			pencil.write('I like to eat ice cream and cake', paper);
+			pencil.erase('cake', paper);
+			pencil.erase('ice cream', paper, 'cookies');
+			expect(paper.content).to.equal('I like to eat cookies   and     ');
+		});
+		it('collides with previous text if there\'s insufficient whitespace', () => {
+			let pencil = new Pencil();
+			let paper = new Paper();
+			pencil.write('I want to buy Lego', paper);
+			pencil.erase('buy', paper, 'build');
+			expect(paper.content).to.equal('I want to buil@ego');
+		});
+		it('continues past original content length', () => {
+			let pencil = new Pencil();
+			let paper = new Paper();
+			pencil.write('Please walk the dog', paper);
+			pencil.erase('dog', paper, 'hippopotomus');
+			expect(paper.content).to.equal('Please walk the hippopotomus');
+		});
 	});
 });
 
