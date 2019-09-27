@@ -1,3 +1,5 @@
+import reverseStr from './utils';
+
 class Pencil {
 	constructor(durability, length) {
 		this.initialDurability = (durability ? durability : Infinity);
@@ -23,7 +25,11 @@ class Pencil {
 		}
 	}
 	erase(string, paper) {
-
+		const start = reverseStr(paper.content).indexOf(reverseStr(string));
+		const stop = start + string.length;
+		paper.content = paper.content.split('').reverse().map((character, index) => {
+			return ((start <= index && index < stop) ? ' ' : character);
+		}).reverse().join('');
 	}
 }
 
