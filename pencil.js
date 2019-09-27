@@ -7,7 +7,13 @@ class Pencil {
 	write(string, paper) {
 		string.split('').map((character) => {
 			paper.content += (this.durability > 0 ? character : ' ');
-			this.durability = this.durability - (/\s/.test(character) ? 0 : (character === character.toUpperCase() ? 2 : 1));
+			this.durability -= (
+				(/\s/.test(character))
+				? 0
+				: (character === character.toUpperCase())
+				? 2
+				: 1
+			);
 		});
 	}
 	sharpen() {
@@ -15,6 +21,9 @@ class Pencil {
 			this.durability = this.initialDurability;
 			this.length -= 1;
 		}
+	}
+	erase(string, paper) {
+
 	}
 }
 
