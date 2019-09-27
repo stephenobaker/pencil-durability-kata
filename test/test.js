@@ -2,6 +2,8 @@ import Pencil from '../pencil';
 
 import Paper from '../paper';
 
+import reverseStr from '../utils';
+
 import 'chai/register-expect';
 
 
@@ -121,5 +123,15 @@ describe('a pencil', () => {
 	});
 	describe('can edit previously written text', () => {
 
+	});
+});
+
+describe('reverseStr util function', () => {
+	it('returns a reversed string', () => {
+		let str1 = 'string';
+		let str2 = 'This is a string';
+		expect(reverseStr(str1)).to.equal('gnirts');
+		expect(reverseStr(str2)).to.equal('gnirts a si sihT');
+		expect(reverseStr(str2).indexOf(reverseStr(str1))).to.equal(0);
 	});
 });
