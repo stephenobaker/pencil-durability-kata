@@ -13,9 +13,9 @@ class Pencil {
 			this.durability -= (
 				(/\s/.test(character))
 				? 0
-				: (character === character.toUpperCase())
-				? 2
-				: 1
+				: (character === character.toLowerCase())
+				? 1
+				: 2
 			);
 		});
 	}
