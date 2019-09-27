@@ -1,10 +1,11 @@
 import reverseStr from './utils';
 
 class Pencil {
-	constructor(durability, length) {
+	constructor(durability, length, eraserDurability) {
 		this.initialDurability = (durability ? durability : Infinity);
 		this.durability = this.initialDurability;
 		this.length = (length ? length : Infinity);
+		this.eraserDurability = (eraserDurability ? eraserDurability : Infinity);
 	}
 	write(string, paper) {
 		string.split('').map((character) => {
@@ -28,7 +29,16 @@ class Pencil {
 		const start = reverseStr(paper.content).indexOf(reverseStr(string));
 		const stop = start + string.length;
 		paper.content = paper.content.split('').reverse().map((character, index) => {
-			return ((start <= index && index < stop) ? ' ' : character);
+			if (this.eraserDurability > 0 && start <= index && index < stop) {
+				this.eraserDurability -= (
+					(/\s/.test(character))
+					? 0
+					: 1
+				);
+				return ' '
+			} else {
+				return character;
+			}
 		}).reverse().join('');
 	}
 }
