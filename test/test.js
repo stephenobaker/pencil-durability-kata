@@ -114,10 +114,10 @@ describe('a pencil', () => {
 		it('erases from right to left, and doesn\'t erase once it\'s degraded', () => {
 			let paper = new Paper();
 			pencil.write('this is a testtesttesttest', paper);
-			pencil.erase('test');
-			pencil.erase('test');
-			pencil.erase('test');
-			pencil.erase('test');
+			pencil.erase('test', paper);
+			pencil.erase('test', paper);
+			pencil.erase('test', paper);
+			pencil.erase('test', paper);
 			expect(paper.content).to.equal('this is a t               ');
 		});
 	});
