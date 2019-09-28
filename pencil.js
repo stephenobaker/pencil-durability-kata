@@ -8,7 +8,7 @@ class Pencil {
 		this.eraserDurability = (eraserDurability ? eraserDurability : Infinity);
 	}
 	write(string, paper) {
-		string.split('').map((character) => {
+		string.split('').forEach((character) => {
 			paper.content += (this.durability > 0 ? character : ' ');
 			this.durability -= used(character, false);
 		});
