@@ -2,7 +2,7 @@ import Pencil from '../pencil';
 
 import Paper from '../paper';
 
-import reverseStr from '../utils';
+import { reverseStr } from '../utils';
 
 import 'chai/register-expect';
 

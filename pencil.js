@@ -1,4 +1,4 @@
-import reverseStr from './utils';
+import { reverseStr, used } from './utils';
 
 class Pencil {
 	constructor(durability, length, eraserDurability) {
@@ -10,13 +10,7 @@ class Pencil {
 	write(string, paper) {
 		string.split('').map((character) => {
 			paper.content += (this.durability > 0 ? character : ' ');
-			this.durability -= (
-				(/\s/.test(character))
-				? 0
-				: (character === character.toLowerCase())
-				? 1
-				: 2
-			);
+			this.durability -= used(character, false);
 		});
 	}
 	sharpen() {
@@ -30,11 +24,7 @@ class Pencil {
 		const stop = start + string.length;
 		paper.content = paper.content.split('').reverse().map((character, index) => {
 			if (this.eraserDurability > 0 && start <= index && index < stop) {
-				this.eraserDurability -= (
-					(/\s/.test(character))
-					? 0
-					: 1
-				);
+				this.eraserDurability -= used(character, true);
 				return ' '
 			} else {
 				return character;
