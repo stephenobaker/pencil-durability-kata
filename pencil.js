@@ -7,11 +7,20 @@ class Pencil {
 		this.length = (length ? length : Infinity);
 		this.eraserDurability = (eraserDurability ? eraserDurability : Infinity);
 	}
-	write(string, paper) {
-		string.split('').forEach((character) => {
-			paper.content += (this.durability > 0 ? character : ' ');
+	write(string, paper, start) {
+		paper.content = paper.content.split('');
+		string.split('').forEach((character, index) => {
+			paper.content.splice(
+				(start ? start + index : paper.content.length),
+				1,
+				this.durability > 0
+				? character
+				: ' '
+			);
 			this.durability -= used(character, false);
 		});
+
+		paper.content = paper.content.join('');
 	}
 	sharpen() {
 		if (this.length > 0) {
@@ -19,7 +28,7 @@ class Pencil {
 			this.length -= 1;
 		}
 	}
-	erase(string, paper) {
+	erase(string, paper, edit) {
 		const start = reverseStr(paper.content).indexOf(reverseStr(string));
 		const stop = start + string.length;
 		paper.content = paper.content.split('').reverse().map((character, index) => {
@@ -30,6 +39,10 @@ class Pencil {
 				return character;
 			}
 		}).reverse().join('');
+		const editStart = paper.content.length - start - string.length;
+		if (edit) {
+			this.write(edit, paper, editStart)
+		}
 	}
 }
 
