@@ -5,13 +5,11 @@ export function reverseStr(string) {
 export function used(character, isEraser) {
  return (
  	(/\s/.test(character))
-				? 0
-				: (character === character.toLowerCase())
-				? 1
-				: (isEraser)
-				? 1
-				: 2
+		? 0
+		: (character === character.toLowerCase())
+		? 1
+		: (isEraser)
+		? 1
+		: 2
 	);
 }
-
-//export { reverseStr, use as default};
