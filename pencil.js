@@ -14,8 +14,14 @@ class Pencil {
 				(start ? start + index : paper.content.length),
 				1,
 				this.durability > 0
-				? character
-				: ' '
+				? /^\S$/.test(paper.content[(start ? start + index : paper.content.length)])
+					? '@'
+					: character
+				
+				: /^\S$/.test(paper.content[(start ? start + index : paper.content.length)])
+					? paper.content[(start ? start + index : paper.content.length)]
+					: ' '
+				
 			);
 			this.durability -= used(character, false);
 		});
