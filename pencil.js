@@ -10,16 +10,17 @@ class Pencil {
 	write(string, paper, start) {
 		paper.content = paper.content.split('');
 		string.split('').forEach((character, index) => {
+			const currentContent = (start ? start + index : paper.content.length);
 			paper.content.splice(
-				(start ? start + index : paper.content.length),
+				currentContent,
 				1,
 				this.durability > 0
-				? /^\S$/.test(paper.content[(start ? start + index : paper.content.length)])
+				? /^\S$/.test(paper.content[currentContent])
 					? '@'
 					: character
 				
-				: /^\S$/.test(paper.content[(start ? start + index : paper.content.length)])
-					? paper.content[(start ? start + index : paper.content.length)]
+				: /^\S$/.test(paper.content[currentContent])
+					? paper.content[currentContent]
 					: ' '
 				
 			);
