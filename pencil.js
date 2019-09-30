@@ -10,23 +10,22 @@ class Pencil {
 	write(string, paper, start) {
 		paper.content = paper.content.split('');
 		string.split('').forEach((character, index) => {
-			const currentContent = (start ? start + index : paper.content.length);
+			const currentContent = (start || start === 0 ? start + index : paper.content.length);
 			paper.content.splice(
 				currentContent,
 				1,
 				this.durability > 0
-				? /^\S$/.test(paper.content[currentContent])
+				? /^\S$/.test(paper.content[currentContent]) && !/\s/.test(character)
 					? '@'
-					: character
-				
+					: /^\S$/.test(paper.content[currentContent]) && /\s/.test(character)
+						? paper.content[currentContent]
+						: character
 				: /^\S$/.test(paper.content[currentContent])
 					? paper.content[currentContent]
 					: ' '
-				
 			);
 			this.durability -= used(character, false);
 		});
-
 		paper.content = paper.content.join('');
 	}
 	sharpen() {
