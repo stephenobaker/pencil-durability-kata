@@ -151,6 +151,37 @@ describe('a pencil', () => {
 	});
 });
 
+describe('a few more edge cases just to be sure', () => {
+	it('erases strings at beginning', () => {
+		let pencil = new Pencil();
+		let paper = new Paper();
+		pencil.write('a b c d', paper);
+		pencil.erase('a', paper);
+		expect(paper.content).to.equal('  b c d');
+	});
+	it('erases strings at end', () => {
+		let pencil = new Pencil();
+		let paper = new Paper();
+		pencil.write('a b c d', paper);
+		pencil.erase('d', paper);
+		expect(paper.content).to.equal('a b c  ');
+	});
+	it('erases partial strings', () => {
+		let pencil = new Pencil();
+		let paper = new Paper();
+		pencil.write('abcdef abcdef', paper);
+		pencil.erase('cd', paper);
+		expect(paper.content).to.equal('abcdef ab  ef');
+	});
+	it('spaces don\'t cause collisions', () => {
+		let pencil = new Pencil();
+		let paper = new Paper();
+		pencil.write('a b c d e f', paper);
+		pencil.erase('a', paper, ' x x x x x x');
+		expect(paper.content).to.equal(' xbxcxdxexfx');
+	});
+});
+
 describe('reverseStr util function', () => {
 	it('returns a reversed string', () => {
 		let str1 = 'string';
