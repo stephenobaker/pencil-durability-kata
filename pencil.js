@@ -2,15 +2,15 @@ import { reverseStr, used } from './utils';
 
 class Pencil {
 	constructor(durability, length, eraserDurability) {
-		this.initialDurability = (durability ? durability : Infinity);
+		this.initialDurability = (typeof durability === 'number' ? durability : Infinity);
 		this.durability = this.initialDurability;
-		this.length = (length ? length : Infinity);
-		this.eraserDurability = (eraserDurability ? eraserDurability : Infinity);
+		this.length = (typeof length === 'number' ? length : Infinity);
+		this.eraserDurability = (typeof eraserDurability === 'number' ? eraserDurability : Infinity);
 	}
 	write(string, paper, start) {
 		paper.content = paper.content.split('');
 		string.split('').forEach((character, index) => {
-			const currentContent = (start || start === 0 ? start + index : paper.content.length);
+			const currentContent = (typeof start === 'number' ? start + index : paper.content.length);
 			paper.content.splice(
 				currentContent,
 				1,
