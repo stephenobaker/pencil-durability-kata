@@ -21,11 +21,15 @@ describe('a pencil', () => {
 	    });
 	});
 	describe('has a point that can degrade', () => {
-		it('can be provided with a value for point durability', () => {
+		it('can be provided with an initial value for point durability, including zero and negatives', () => {
 			let pencil5 = new Pencil(5);
 			let pencil4000 = new Pencil(4000);
+			let pencil0 = new Pencil(0);
+			let pencilNegative = new Pencil(-1);
 			expect(pencil5.durability).to.equal(5);
 			expect(pencil4000.durability).to.equal(4000);
+			expect(pencil0.durability).to.equal(0);
+			expect(pencilNegative.durability).to.equal(-1);
 		});
 		it('degrades lowercase letters by one, then writes blank spaces', () => {
 			let pencil4 = new Pencil(4);
@@ -53,7 +57,6 @@ describe('a pencil', () => {
 			expect(pencil.durability).to.equal(1);
 		});
 		it('degrades by one for each non-letter character written', () => {
-			//this isn't specified either way in requirements
 			let pencil = new Pencil(5);
 			let paper = new Paper();
 			pencil.write('$3', paper);
@@ -68,9 +71,14 @@ describe('a pencil', () => {
 			pencil.sharpen();
 			expect(pencil.durability).to.equal(10);
 		});
-		it('can be provided with an initial length value', () => {
+		it('can be provided with an initial length value, including zero and negatives', () => {
 			let pencil = new Pencil(4,7);
+			let pencil0 = new Pencil(4,0);
+			let pencilNegative = new Pencil(4,-1);
 			expect(pencil.length).to.equal(7);
+			expect(pencil0.length).to.equal(0);
+			expect(pencilNegative.length).to.equal(-1);
+
 		});
 		it('length is decreased by one each time it\'s sharpened', () => {
 			let pencil = new Pencil(4,7);
@@ -85,6 +93,14 @@ describe('a pencil', () => {
 			pencil.write('test', paper);
 			pencil.sharpen();
 			expect(pencil.durability).to.equal(0);
+			let pencil0 = new Pencil(4,0);
+			pencil0.write('test', paper);
+			let pencilNegative = new Pencil(4,-1);
+			pencilNegative.write('test', paper);
+			pencil0.sharpen();
+			pencilNegative.sharpen();
+			expect(pencil0.durability).to.equal(0);
+			expect(pencilNegative.durability).to.equal(0);
 		});
 	});
 	describe('has an eraser that can erase', () => {
@@ -100,14 +116,22 @@ describe('a pencil', () => {
 	});
 	describe('has an eraser that degrades with use', () => {
 		let pencil = new Pencil(100,1,25);
-		it('can be provided a value for eraser durability', () => {
+		let pencil0 = new Pencil(100,1,0);
+		let pencilNegative = new Pencil(100,1,-1);
+		it('can be provided a value for eraser durability, including zero and negatives', () => {
 			expect(pencil.eraserDurability).to.equal(25);
+			expect(pencil0.eraserDurability).to.equal(0);
+			expect(pencilNegative.eraserDurability).to.equal(-1);
 		});
-		it('characters degrade the eraser by a value of one', () => {
+		it('characters degrade the eraser by a value of one if eraser durability is greater than zero', () => {
 			let paper = new Paper();
 			pencil.write('hello world', paper);
 			pencil.erase('hello', paper);
+			pencil0.erase('world', paper);
+			pencilNegative.erase('world', paper);
 			expect(pencil.eraserDurability).to.equal(20);
+			expect(pencil0.eraserDurability).to.equal(0);
+			expect(pencilNegative.eraserDurability).to.equal(-1);
 		});
 		it('white space does not degrade the eraser', () => {
 			let paper = new Paper();
@@ -176,9 +200,26 @@ describe('a few more edge cases just to be sure', () => {
 	it('spaces don\'t cause collisions', () => {
 		let pencil = new Pencil();
 		let paper = new Paper();
+		let paper2 = new Paper();
 		pencil.write('a b c d e f', paper);
 		pencil.erase('a', paper, ' x x x x x x');
 		expect(paper.content).to.equal(' xbxcxdxexfx');
+		pencil.write('     ', paper2);
+		pencil.erase('     ', paper2, '       ');
+		expect(paper2.content).to.equal('       ');
+	});
+	it('when no value is provided, or non-numbers are provided, pencil values default to infinity', () => {
+		let pencil = new Pencil();
+		let pencilNaN = new Pencil(NaN, NaN, NaN);
+		let pencilStrings = new Pencil('These', 'are', 'strings');
+		let pencilUndefined = new Pencil(undefined, undefined, undefined);
+		let pencilsArray = [pencil, pencilNaN, pencilStrings, pencilUndefined];
+		pencilsArray.forEach((pencil) => {
+			expect(pencil.durability).to.equal(Infinity);
+			expect(pencil.length).to.equal(Infinity);
+			expect(pencil.eraserDurability).to.equal(Infinity);
+		});
+
 	});
 });
 
