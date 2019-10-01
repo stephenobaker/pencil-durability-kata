@@ -1,9 +1,11 @@
 # Pencil Durability Kata
-An exercise in Test-Driven Development, building a set of functions that meet the requirements outlined [here](https://github.com/PillarTechnology/kata-pencil-durability) to simulate a pencil and paper.
+An exercise in Test-Driven Development, building a set of JavaScript functions that simulate the ability of a pencil to write on a piece of paper.
 
-Where the requirements aren't clear, I make a couple assumptions:
-1. I assume non-letter characters will degrade a pencil's lead by the same amount as a lowercase letter
-2. I assume that the edit function needs only to add text in the whitespace of the single most recently erased text string, and therefore I pass the edit string as an optional argument in the erase function
+In addition to meeting the requirements outlined [here](https://github.com/PillarTechnology/kata-pencil-durability), I make several assumptions which result in these additional requirements:
+1. Non-letter characters will degrade a pencil's lead by a value of one
+2. Editing is passed as an argument in the erase function, and only writes new text in the whitespace(s) left by the most recently erased string (the one being erased in the erase function to which the edit argument is passed)
+3. When a pencil is created, if no value is passed for length, point durability, or eraser durability, or if a non-number or NaN is passed, the values default to Infinity
+
 ## Instructions
 To run the tests in the command line:
 1. Clone this repo.
