@@ -212,21 +212,19 @@ describe('additional requirements based on assumptions', () => {
 		expect(pencil.durability).to.equal(3);
 	});
 	describe('floating points can be passed as values, and values greater than zero but still insufficient result in same behavior as zero', () => {
-		let pencil = new Pencil(4.5, 0.9, 2.2);
+		let pencil = new Pencil(5.5, 0.9, 1.2);
 		let paper = new Paper();
 		it('cannot write if point durability is greater than zero but still insufficient', () => {
-			pencil.write('hello', paper);
-			expect(paper.content).to.equal('hell ');
-			expect(pencil.durability).to.equal(0.5);
-
+			pencil.write('HELLO', paper);
+			expect(paper.content).to.equal('HE   ');
 		});
 		it('cannot sharpen if length is greater than zero but still insufficient', () => {
 			pencil.sharpen();
-			expect(pencil.durability).to.equal(0.5);
+			expect(pencil.durability).to.equal(1.5);
 		});
 		it('cannot erase if eraser durability is greater than zero but still insufficient', () => {
-			pencil.erase('hell', paper);
-			expect(paper.content).to.equal('he   ');
+			pencil.erase('HE', paper);
+			expect(paper.content).to.equal('H    ');
 		});
 	});
 	it('when anything but a real number is passed as a value at pencil construction, constructed values default to infinity', () => {
