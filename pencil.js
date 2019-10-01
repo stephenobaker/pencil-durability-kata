@@ -2,10 +2,10 @@ import { reverseStr, used } from './utils';
 
 class Pencil {
 	constructor(durability, length, eraserDurability) {
-		this.initialDurability = (isNaN(durability) ? Infinity : durability);
+		this.initialDurability = (isNaN(durability) || durability === null ? Infinity : durability);
 		this.durability = this.initialDurability;
-		this.length = (isNaN(length) ? Infinity : length);
-		this.eraserDurability = (isNaN(eraserDurability) ? Infinity : eraserDurability);
+		this.length = (isNaN(length) || length === null ? Infinity : length);
+		this.eraserDurability = (isNaN(eraserDurability) || eraserDurability === null ? Infinity : eraserDurability);
 	}
 	write(string, paper, start) {
 		paper.content = paper.content.split('');

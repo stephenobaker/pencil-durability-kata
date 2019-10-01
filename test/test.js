@@ -208,12 +208,13 @@ describe('a few more edge cases just to be sure', () => {
 		pencil.erase('     ', paper2, '       ');
 		expect(paper2.content).to.equal('       ');
 	});
-	it('when no value is provided, or non-numbers are provided, pencil values default to infinity', () => {
+	it('when non-numbers are passed as values, constructed values default to infinity', () => {
 		let pencil = new Pencil();
 		let pencilNaN = new Pencil(NaN, NaN, NaN);
 		let pencilStrings = new Pencil('These', 'are', 'strings');
 		let pencilUndefined = new Pencil(undefined, undefined, undefined);
-		let pencilsArray = [pencil, pencilNaN, pencilStrings, pencilUndefined];
+		let pencilNull = new Pencil(null, null, null);
+		let pencilsArray = [pencil, pencilNaN, pencilStrings, pencilUndefined, pencilNull];
 		pencilsArray.forEach((pencil) => {
 			expect(pencil.durability).to.equal(Infinity);
 			expect(pencil.length).to.equal(Infinity);
