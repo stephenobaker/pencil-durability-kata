@@ -56,12 +56,6 @@ describe('a pencil', () => {
 			pencil.write('HI', paper);
 			expect(pencil.durability).to.equal(1);
 		});
-		it('degrades by one for each non-letter character written', () => {
-			let pencil = new Pencil(5);
-			let paper = new Paper();
-			pencil.write('$3', paper);
-			expect(pencil.durability).to.equal(3);
-		});
 	});
 	describe('can be sharpened', () => {
 		it('regains initial point durability when sharpened after degradation', () => {
@@ -208,7 +202,32 @@ describe('a few more edge cases just to be sure', () => {
 		pencil.erase('     ', paper2, '       ');
 		expect(paper2.content).to.equal('       ');
 	});
-	it('when non-numbers are passed as values, constructed values default to infinity', () => {
+});
+
+describe('additional requirements based on assumptions', () => {
+	it('degrades by one for each non-letter character written', () => {
+		let pencil = new Pencil(5);
+		let paper = new Paper();
+		pencil.write('$3', paper);
+		expect(pencil.durability).to.equal(3);
+	});
+	describe('floating points can be passed as values, and values greater than zero but still insufficient result in same behavior as zero', () => {
+		let pencil = new Pencil(4.5, 0.9, 2.2);
+		let paper = new Paper();
+		it('cannot write if point durability is greater than zero but still insufficient', () => {
+			pencil.write('hello', paper);
+			expect(paper.content).to.equal('hell ');
+		});
+		it('cannot sharpen if length is greater than zero but still insufficient', () => {
+			pencil.sharpen();
+			expect(pencil.durability).to.equal(0.5);
+		});
+		it('cannot erase if eraser durability is greater than zero but still insufficient', () => {
+			pencil.erase('hell', paper);
+			expect(paper.content).to.equal('he   ');
+		});
+	});
+	it('when anything but a real number is passed as a value at pencil construction, constructed values default to infinity', () => {
 		let pencil = new Pencil();
 		let pencilNaN = new Pencil(NaN, NaN, NaN);
 		let pencilStrings = new Pencil('These', 'are', 'strings');
@@ -220,7 +239,6 @@ describe('a few more edge cases just to be sure', () => {
 			expect(pencil.length).to.equal(Infinity);
 			expect(pencil.eraserDurability).to.equal(Infinity);
 		});
-
 	});
 });
 
