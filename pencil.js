@@ -11,10 +11,7 @@ class Pencil {
 		paper.content = paper.content.split('');
 		string.split('').forEach((character, index) => {
 			const currentContent = (isNaN(start) ? paper.content.length : start + index);
-			paper.content.splice(
-				currentContent,
-				1,
-				this.durability > 0
+			const characterUsed = (this.durability >= 1
 				? /^\S$/.test(paper.content[currentContent]) && !/\s/.test(character)
 					? '@'
 					: /^\S$/.test(paper.content[currentContent]) && /\s/.test(character)
@@ -24,12 +21,15 @@ class Pencil {
 					? paper.content[currentContent]
 					: ' '
 			);
-			this.durability -= used(character, false);
+			paper.content.splice(currentContent, 1, characterUsed);
+			if (this.durability >=1) {
+				this.durability -= used(characterUsed, false);
+			}
 		});
 		paper.content = paper.content.join('');
 	}
 	sharpen() {
-		if (this.length > 0) {
+		if (this.length >= 1) {
 			this.durability = this.initialDurability;
 			this.length -= 1;
 		}
@@ -38,7 +38,7 @@ class Pencil {
 		const start = reverseStr(paper.content).indexOf(reverseStr(string));
 		const stop = start + string.length;
 		paper.content = paper.content.split('').reverse().map((character, index) => {
-			if (this.eraserDurability > 0 && start <= index && index < stop) {
+			if (this.eraserDurability >= 1 && start <= index && index < stop) {
 				this.eraserDurability -= used(character, true);
 				return ' '
 			} else {

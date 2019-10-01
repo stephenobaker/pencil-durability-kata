@@ -217,6 +217,8 @@ describe('additional requirements based on assumptions', () => {
 		it('cannot write if point durability is greater than zero but still insufficient', () => {
 			pencil.write('hello', paper);
 			expect(paper.content).to.equal('hell ');
+			expect(pencil.durability).to.equal(0.5);
+
 		});
 		it('cannot sharpen if length is greater than zero but still insufficient', () => {
 			pencil.sharpen();
