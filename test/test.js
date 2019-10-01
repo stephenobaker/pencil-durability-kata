@@ -205,7 +205,7 @@ describe('a few more edge cases just to be sure', () => {
 });
 
 describe('additional requirements based on assumptions', () => {
-	it('degrades by one for each non-letter character written', () => {
+	it('point durability degrades by one for each non-letter character written', () => {
 		let pencil = new Pencil(5);
 		let paper = new Paper();
 		pencil.write('$3', paper);
@@ -226,6 +226,15 @@ describe('additional requirements based on assumptions', () => {
 			pencil.erase('HE', paper);
 			expect(paper.content).to.equal('H    ');
 		});
+	});
+	it('if erase function doesn\'t find an exact match, nothing is erased', () => {
+		let pencil = new Pencil();
+		let paper = new Paper();
+		pencil.write('Hello World', paper);
+		pencil.erase('sdf', paper);
+		pencil.erase('Helloo', paper);
+		pencil.erase('world', paper, 'Test that edit does nothing');
+		expect(paper.content).to.equal('Hello World');
 	});
 	it('when anything but a real number is passed as a value at pencil construction, constructed values default to infinity', () => {
 		let pencil = new Pencil();

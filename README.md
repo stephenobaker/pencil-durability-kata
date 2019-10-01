@@ -6,6 +6,7 @@ In addition to meeting the requirements outlined [here](https://github.com/Pilla
 2. Editing is passed as an argument in the erase function, and only writes new text in the whitespace(s) left by the most recently erased string (the one being erased in the erase function to which the edit argument is passed)
 3. When a pencil is created, if no value is passed for length, point durability, or eraser durability, or if a non-number or NaN is passed, the values default to Infinity
 4. Values passed at pencil creation can be floating points, and if the value for length, point durability, or eraser durability is insufficient (even if greater than zero), then the sharpen, write, and erase functions behave the same way as if the values were zero
+5. If a value is passed to the erase function that cannot be matched exactly, nothing is erased and nothing passed as an edit string is written
 
 ## Instructions
 To run the tests in the command line:

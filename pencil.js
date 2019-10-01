@@ -37,19 +37,21 @@ class Pencil {
 		}
 	}
 	erase(string, paper, edit) {
-		const start = reverseStr(paper.content).indexOf(reverseStr(string));
-		const stop = start + string.length;
-		paper.content = paper.content.split('').reverse().map((character, index) => {
-			if (this.eraserDurability - used(character, true) >= 0 && start <= index && index < stop) {
-				this.eraserDurability -= used(character, true);
-				return ' '
-			} else {
-				return character;
+		if (reverseStr(paper.content).indexOf(reverseStr(string)) !== -1) {
+			const start = reverseStr(paper.content).indexOf(reverseStr(string));
+			const stop = start + string.length;
+			paper.content = paper.content.split('').reverse().map((character, index) => {
+				if (this.eraserDurability - used(character, true) >= 0 && start <= index && index < stop) {
+					this.eraserDurability -= used(character, true);
+					return ' '
+				} else {
+					return character;
+				}
+			}).reverse().join('');
+			const editStart = paper.content.length - start - string.length;
+			if (edit) {
+				this.write(edit, paper, editStart)
 			}
-		}).reverse().join('');
-		const editStart = paper.content.length - start - string.length;
-		if (edit) {
-			this.write(edit, paper, editStart)
 		}
 	}
 }
